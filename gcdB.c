@@ -15,12 +15,20 @@ int main(void) {
     scanf("%d", &a);
     scanf("%d", &b);
 
-    /*
-     *
-     *  Finish your code here
-     * 
-     */
+    // calculate GCD
+    while (a != b) {
+        // 'a', 'b' not equal(E2 condition), check which is bigger
+        if (a > b) {
+            // 'a' bigger, iterative for 'a' 
+            a = a - b;
+        }
+        else {
+            // 'b' bigger, iterative for 'b', no need to consider equal
+            b = b - a;
+        }
+    }
 
+    // if 'a', 'b' equal, print 'a' (E1 condition)
     printf("The greatest common divisor is %d\n", a);
 
     return 0;
