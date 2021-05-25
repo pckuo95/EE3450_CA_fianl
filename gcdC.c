@@ -8,7 +8,7 @@
 
 int gcd(int a, int b) {
     int n = 0;
-    while ((a % 2) == 0 && (b % 2) == 0) {
+    while ((a | 1) == 0 && (b | 1) == 0) {
         a = a >> 1;
         b = b >> 1;
         n++;
