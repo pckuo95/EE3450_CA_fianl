@@ -61,9 +61,9 @@ BGCDloop:
 	slt $t2, $a0, $a1		# check a < b
 
 
-	bne $t0, $0, evenA
-	bne $t1, $0, oddAevenB
-	bne $t2, $0, lableoddAlB
+	beq $t0, $0, evenA		# jump if a even
+	beq $t1, $0, oddAevenB  # jump if b even
+	bne $t2, $0, lableoddAlB 	# a < b jump
 	sub $a0, $a0, $a1		# else if (a > b) a = a - b
 	add $a1, $a1, $a0		# let b = (b + a) - a  below
 lableoddAlB:
@@ -76,8 +76,8 @@ oddAevenB:
 	jal	BGCDloop				# recursive call
 	j Endloop
 evenA:
-	bne $t1, $0, evenAnB
-	srl $a0, $a0, 1
+	beq $t1, $0, evenAnB		# jump if b even
+	srl $a0, $a0, 1				# even A odd B 
 	jal	BGCDloop				# recursive call
 	j Endloop
 evenAnB:
