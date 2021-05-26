@@ -2,6 +2,8 @@
 //    EE3450 Computer Architecture - Spring 109      //
 //    Project: Find Greatest Common Divisors (GCD)   //
 //    Iterative method (gcdB.c)                      //
+//    Student Name: Po-Chen Kuo                      //
+//    Student ID: 107012045                          //
 ///////////////////////////////////////////////////////
 
 #include <stdio.h>

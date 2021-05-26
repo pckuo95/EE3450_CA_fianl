@@ -2,6 +2,8 @@
 #    EE3450 Computer Architecture - Spring 109      #
 #    Project: Find Greatest Common Divisors (GCD)   #
 #    Iterative method (gcdB.asm)                    #
+#	 Student Name: Po-Chen Kuo						#
+#	 Student ID: 107012045							#
 #####################################################
 
 .data
@@ -27,9 +29,27 @@ main:
     move $s1, $v0
 
     ###########################
-    #
-    #  Finish your code here
-    #
+
+findGCD:
+
+	
+
+	slt $s2, $s0, $s1	# else(a < b) 1:0
+	bne $s2, $0, lableAlB
+
+	sub $s0, $s0, $s1	# else if (a > b) a = a - b
+	add $s1, $s1, $s0	# let b = (b + a) - a  below
+lableAlB:
+	sub $s1, $s1, $s0	# else (a < b) b = b - a
+		
+	bne $s0, $s1, findGCD	# while (a != b) loop findGCD
+
+
+
+
+
+
+
     ###########################
 
 	li $v0, 4 # prepare syscall 4 (print string)

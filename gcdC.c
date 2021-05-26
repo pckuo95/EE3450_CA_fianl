@@ -1,33 +1,35 @@
 ///////////////////////////////////////////////////////
 //    EE3450 Computer Architecture - Spring 109      //
 //    Project: Find Greatest Common Divisors (GCD)   //
-//    Binary GCD (gcdC.c)                            //
+//    Binary GCD (gcdC.c)  (recursive!)              //
+//    Student Name: Po-Chen Kuo                      //
+//    Student ID: 107012045                          //
 ///////////////////////////////////////////////////////
 
 #include <stdio.h>
 
 int gcd(int a, int b) {
-    int n = 0;
-    while ((a | 1) == 0 && (b | 1) == 0) {
-        a = a >> 1;
-        b = b >> 1;
-        n++;
-    }
+    int isOdd_a = (a & 1);
+    int isOdd_b = (b & 1);
 
-    while (a != b) {
-        // 'a', 'b' not equal(E2 condition), check which is bigger
-        if (a > b) {
-            // 'a' bigger, iterative for 'a' 
-            a = a - b;
-        }
-        else {
-            // 'b' bigger, iterative for 'b', no need to consider equal
-            b = b - a;
-        }
+    if (a == b) {
+        return a;
     }
-
-    a = a << n;
-    return a;
+    else if (isOdd_a && isOdd_b && a > b) {
+        return gcd(a - b, b);
+    }
+    else if (isOdd_a && isOdd_b) {
+        return gcd(a, b - a);
+    }
+    else if (isOdd_a) {
+        return gcd(a, b >> 1);
+    } 
+    else if (isOdd_b) {
+        return gcd(a >> 1, b);
+    }
+    else {
+        return 2 * gcd(a >> 1, b >> 1);
+    }
 }
 
 int main(void) {
