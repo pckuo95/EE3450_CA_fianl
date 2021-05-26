@@ -31,9 +31,6 @@ main:
     ###########################
 
 findGCD:
-
-	
-
 	slt $s2, $s0, $s1	# else(a < b) 1:0
 	bne $s2, $0, lableAlB
 
@@ -41,14 +38,7 @@ findGCD:
 	add $s1, $s1, $s0	# let b = (b + a) - a  below
 lableAlB:
 	sub $s1, $s1, $s0	# else (a < b) b = b - a
-		
 	bne $s0, $s1, findGCD	# while (a != b) loop findGCD
-
-
-
-
-
-
 
     ###########################
 

@@ -61,14 +61,14 @@ GCDloop:
 
 lableAlB:
 	sub $a1, $a1, $a0		# b = b - a
-	jal		fac				# recursive call
+	jal		GCDloop				# recursive call
 	lw		$ra, 0($sp)		# pop return address from the stack.
 	addi	$sp, $sp, 4		# restore the stack
 	j	ret					# exit procedure
 
 
 ret_a:
-	li	$v0, $a0			# prepare value $a0 for return
+	move	$v0, $a0			# prepare value $a0 for return
 
 ret:
 	jr	$ra						# return
