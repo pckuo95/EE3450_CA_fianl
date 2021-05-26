@@ -18,14 +18,11 @@ int main(void) {
     scanf("%d", &b);
 
     // calculate GCD
-    while (a != b) {
-        // 'a', 'b' not equal(E2 condition), check which is bigger
-        if (a > b) {
-            // 'a' bigger, iterative for 'a' 
+    while (a != b) {        // 'a', 'b' not equal(E2 condition) compare a & b
+        if (a > b) {        // 'a' bigger, iterative for 'a'    
             a = a - b;
         }
-        else {
-            // 'b' bigger, iterative for 'b', no need to consider equal
+        else {              // 'b' bigger, iterative for 'b'   
             b = b - a;
         }
     }

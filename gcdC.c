@@ -9,26 +9,26 @@
 #include <stdio.h>
 
 int gcd(int a, int b) {
-    int isOdd_a = (a & 1);
-    int isOdd_b = (b & 1);
+    int isOdd_a = (a & 1);      // Check a is odd(1) or even(0)
+    int isOdd_b = (b & 1);      // Check b is odd(1) or even(0)
 
-    if (a == b) {
+    if (a == b) {               // E2 condition
         return a;
-    }
+    }                           // a & b is odd, E1 condition, compare a and b 
     else if (isOdd_a && isOdd_b && a > b) {
-        return gcd(a - b, b);
+        return gcd(a - b, b);   // a > b 
     }
     else if (isOdd_a && isOdd_b) {
-        return gcd(a, b - a);
+        return gcd(a, b - a);   // a < b
     }
-    else if (isOdd_a) {
-        return gcd(a, b >> 1);
+    else if (isOdd_a) {         
+        return gcd(a, b >> 1);  // BG2 condition, b is even
     } 
-    else if (isOdd_b) {
-        return gcd(a >> 1, b);
+    else if (isOdd_b) {         
+        return gcd(a >> 1, b);  // BG2 condition, a is even
     }
-    else {
-        return 2 * gcd(a >> 1, b >> 1);
+    else {                      // BG1 condition, both a and b is even
+        return gcd(a >> 1, b >> 1) << 1;
     }
 }
 
