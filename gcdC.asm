@@ -27,10 +27,14 @@ main:
     move $s1, $v0
 
     ###########################
-    #
-    #  Finish your code here
-    #
+
+    move $a0, $s0			# prepare argument a0
+	move $a1, $s1			# prepare argument a1
+	jal BGCDloop				# call "fac" function and jump to fac tag.
+	move $s0, $v0			# save return value from v0 to s0
+
     ###########################
+
 
 	li $v0, 4 # prepare syscall 4 (print string)
 	la $a0, msg2 # argument: msg2 
@@ -44,4 +48,52 @@ exit:
 
 	li $v0, 10 # terminate program run and
 	syscall # Exit
+
+
+BGCDloop:
+	beq		$a0, $a1, ret_a	# branch to "ret" if input $a0, $a1 is equal.
+	addi	$sp, $sp, -4	# make room for stack push
+	sw		$ra, 0($sp)		# push return address to the stack.
+	
+	# prepare needed arguments
+	andi $t0, $a0, 1		# check a0 is odd(1) or even(0)
+	andi $t1, $a1, 1		# check a1 is odd(1) or even(0)
+	slt $t2, $a0, $a1		# check a < b
+
+
+	bne $t0, $0, evenA
+	bne $t1, $0, oddAevenB
+	bne $t2, $0, lableoddAlB
+	sub $a0, $a0, $a1		# else if (a > b) a = a - b
+	add $a1, $a1, $a0		# let b = (b + a) - a  below
+lableoddAlB:
+	sub $a1, $a1, $a0		# b = b - a
+	jal	BGCDloop				# recursive call
+	
+	j Endloop
+oddAevenB:
+	srl $a1, $a1, 1
+	jal	BGCDloop				# recursive call
+	j Endloop
+evenA:
+	bne $t1, $0, evenAnB
+	srl $a0, $a0, 1
+	jal	BGCDloop				# recursive call
+	j Endloop
+evenAnB:
+	srl $a0, $a0, 1
+	srl $a1, $a1, 1
+	jal	BGCDloop				# recursive call
+	sll $v0, $v0, 1			# Multiply2
+Endloop:
+	lw		$ra, 0($sp)		# pop return address from the stack.
+	addi	$sp, $sp, 4		# restore the stack
+	j	ret					# exit procedure
+
+ret_a:
+	move	$v0, $a0			# prepare value $a0 for return
+
+ret:
+	jr	$ra						# return
+
 	

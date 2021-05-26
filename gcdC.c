@@ -23,7 +23,7 @@ int gcd(int a, int b) {
     }
     else if (isOdd_a) {         
         return gcd(a, b >> 1);  // BG2 condition, b is even
-    } 
+    }
     else if (isOdd_b) {         
         return gcd(a >> 1, b);  // BG2 condition, a is even
     }
