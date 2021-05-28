@@ -53,7 +53,7 @@ GCDloop:
 	sw		$ra, 0($sp)		# push return address to the stack.
 	
 	# prepare needed arguments
-	slsl $t0, $a0, $a1		# else(a < b) 1:0
+	slt $t0, $a0, $a1		# else(a < b) 1:0
 	bne $t0, $0, lableAlB 	# 'else (a < b)', branch while a less than b
 	sub $a0, $a0, $a1		# else if (a > b) a = a - b
 	add $a1, $a1, $a0		# let b = (b + a) - a  below
