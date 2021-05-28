@@ -31,10 +31,9 @@ main:
     ###########################
 
 findGCD:
-	beq	$s0, $s1, endloop	# if a == b, end loop and print a
-	slt $s2, $s0, $s1		# else(a < b) 1:0
-	bne $s2, $0, lableAlB
-
+	beq	$s0, $s1, endloop	# if a == b, go to endloop and print
+	slt $s2, $s0, $s1		# check (a < b) let s2 = 1:0
+	bne $s2, $0, lableAlB	# branch if a less then b
 	sub $s0, $s0, $s1		# else if (a > b) a = a - b
 	add $s1, $s1, $s0		# let b = (b + a) - a  below
 lableAlB:

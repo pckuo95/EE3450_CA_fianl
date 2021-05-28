@@ -29,10 +29,10 @@ main:
     move $s1, $v0
 
 # #############
-	move $a0, $s0			# prepare argument a0
-	move $a1, $s1			# prepare argument a1
-	jal GCDloop				# call "fac" function and jump to fac tag.
-	move $s0, $v0			# save return value from v0 to s0
+	move 	$a0, $s0		# prepare argument a0
+	move 	$a1, $s1		# prepare argument a1
+	jal 	GCDloop			# call "GCDloop" function and jump.
+	move 	$s0, $v0		# save return value from v0 to s0
 # ##############
 	
 	li $v0, 4 				# prepare syscall 4 (print string)
@@ -48,22 +48,22 @@ exit:
 	syscall 				# Exit
 
 GCDloop:
-	beq		$a0, $a1, ret_a	# branch to "ret" if input $a0, $a1 is equal.
+	beq		$a0, $a1, ret_a	# branch to "ret_a" if input $a0, $a1 is equal.
 	addi	$sp, $sp, -4	# make room for stack push
 	sw		$ra, 0($sp)		# push return address to the stack.
 	
 	# prepare needed arguments
-	slt $t0, $a0, $a1		# else(a < b) 1:0
+	slt $t0, $a0, $a1		# check(a < b) let t0 = 1:0
 	bne $t0, $0, lableAlB 	# 'else (a < b)', branch while a less than b
 	sub $a0, $a0, $a1		# else if (a > b) a = a - b
 	add $a1, $a1, $a0		# let b = (b + a) - a  below
 
 lableAlB:
-	sub $a1, $a1, $a0		# b = b - a
+	sub 	$a1, $a1, $a0	# b = b - a
 	jal		GCDloop			# recursive call
 	lw		$ra, 0($sp)		# pop return address from the stack.
 	addi	$sp, $sp, 4		# restore the stack
-	j	ret					# exit procedure
+	j		ret				# exit procedure
 
 
 ret_a:

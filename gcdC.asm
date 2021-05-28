@@ -29,10 +29,10 @@ main:
     move $s1, $v0
 
 # ##########################
-    move $a0, $s0				# prepare argument a0
-	move $a1, $s1				# prepare argument a1
-	jal BGCDloop				# call "BGCDloop" function and jump.
-	move $s0, $v0				# save return value from v0 to s0
+    move 	$a0, $s0			# prepare argument a0
+	move 	$a1, $s1			# prepare argument a1
+	jal 	BGCDloop			# call "BGCDloop" function and jump.
+	move 	$s0, $v0			# save return value from v0 to s0
 # ##########################
 
 
@@ -51,20 +51,19 @@ exit:
 
 
 BGCDloop:
-	beq		$a0, $a1, ret_a		# branch to "ret" if input $a0, $a1 is equal.
+	beq		$a0, $a1, ret_a		# branch to "ret_a" if input $a0, $a1 is equal.
 	addi	$sp, $sp, -4		# make room for stack push
 	sw		$ra, 0($sp)			# push return address to the stack.
 	
 	# prepare needed arguments
-	
 	andi $t0, $a0, 1			# check a0 is odd(1) or even(0)
 	andi $t1, $a1, 1			# check a1 is odd(1) or even(0)
 
 	beq $t0, $0, evenA			# jump if a even
 	beq $t1, $0, oddAevenB  	# jump if b even
 	slt $t2, $a0, $a1			# both a and b is odd, check a < b
-	bne $t2, $0, lableoddAlB 	# a < b jump
-	sub $a0, $a0, $a1			# else if (a > b) a = a - b
+	bne $t2, $0, lableoddAlB 	# branch to "lableoddAlB" if a < b
+	sub $a0, $a0, $a1			# else if (a > b) let a = a - b
 	add $a1, $a1, $a0			# let b = (b + a) - a  below
 lableoddAlB:
 	sub $a1, $a1, $a0			# b = b - a
@@ -72,19 +71,19 @@ lableoddAlB:
 	
 	j Endloop
 oddAevenB:
-	srl $a1, $a1, 1
+	srl $a1, $a1, 1				# shift right for b = b / 2
 	jal	BGCDloop				# recursive call
 	j Endloop
 evenA:
-	beq $t1, $0, evenAnB		# jump if b even
-	srl $a0, $a0, 1				# even A odd B 
+	beq $t1, $0, evenAnB		# branch to "evenAnB" if b even
+	srl $a0, $a0, 1				# shift right for a = a / 2 
 	jal	BGCDloop				# recursive call
 	j Endloop
 evenAnB:
-	srl $a0, $a0, 1
-	srl $a1, $a1, 1
+	srl $a0, $a0, 1				# shift right for a = a / 2
+	srl $a1, $a1, 1				# shift right for b = b / 2
 	jal	BGCDloop				# recursive call
-	sll $v0, $v0, 1				# Multiply2
+	sll $v0, $v0, 1				# shift left for Multiply by 2
 Endloop:
 	lw		$ra, 0($sp)			# pop return address from the stack.
 	addi	$sp, $sp, 4			# restore the stack
