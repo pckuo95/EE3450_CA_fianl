@@ -31,6 +31,7 @@ main:
     ###########################
 
 findGCD:
+	beq	$s0, $s1, endloop	# if a == b, end loop and print a
 	slt $s2, $s0, $s1		# else(a < b) 1:0
 	bne $s2, $0, lableAlB
 
@@ -42,6 +43,7 @@ lableAlB:
 
     ###########################
 
+endloop:
 	li $v0, 4 				# prepare syscall 4 (print string)
 	la $a0, msg2 			# argument: msg2 
 	syscall
