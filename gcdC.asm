@@ -57,13 +57,12 @@ BGCDloop:
 	
 	# prepare needed arguments
 	
-	
-	
 	andi $t0, $a0, 1			# check a0 is odd(1) or even(0)
 	andi $t1, $a1, 1			# check a1 is odd(1) or even(0)
+
 	beq $t0, $0, evenA			# jump if a even
 	beq $t1, $0, oddAevenB  	# jump if b even
-	slt $t2, $a0, $a1			# check a < b
+	slt $t2, $a0, $a1			# both a and b is odd, check a < b
 	bne $t2, $0, lableoddAlB 	# a < b jump
 	sub $a0, $a0, $a1			# else if (a > b) a = a - b
 	add $a1, $a1, $a0			# let b = (b + a) - a  below
@@ -96,5 +95,3 @@ ret_a:
 
 ret:
 	jr	$ra						# return
-
-	
