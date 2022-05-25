@@ -1,0 +1,20 @@
+/// Final Project: GCD
+/// use C (via gcc) and asm (via Mars) to compare different algorithm performance 
+source code:
+->sample:
+fac_ite.*
+fac_rec.*
+->project:
+gcdA.* Recursive method
+gcdB.* Iterative method
+gcdC.* Recursive method with shift 2
+
+// report
+project description: EE3450_project.pdf
+report: report.pdf
+report_source: FinalProject_107012045.docx
+
+// analysis
+gcd performance analysis and figures
+
+# credit by po-chen
